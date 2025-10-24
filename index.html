@@ -859,7 +859,7 @@
                     <div class="secret-diary">
                         <h2 class="post-title">☆ 秘密日记 ☆</h2>
                         <div class="diary-lock">
-                            <input type="password" id="diary-password" placeholder="请输入密码">
+                            <input type="password" id="diary-password" placeholder="请输入密码 提示：我的生日">
                             <button class="submit-btn" onclick="unlockDiary()">解锁日记</button>
                         </div>
                         <div class="diary-content" id="diary-content">
@@ -978,7 +978,7 @@
     // 秘密日记解锁功能
     function unlockDiary() {
         const password = document.getElementById('diary-password').value;
-        if (password === '20000308') {
+        if (password === '19990308') {
             document.getElementById('diary-content').style.display = 'block';
             document.querySelector('.diary-lock').style.display = 'none';
         } else {
