@@ -272,6 +272,58 @@
             overflow: hidden;
         }
         
+        /* 图片查看模态框样式 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  padding-top: 50px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  border: 3px outset #ff66b2;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#modalCaption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  font-size: 16px;
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #ff66b2;
+  text-decoration: none;
+  cursor: pointer;
+}
+        
         /* 本地图片样式 */
         .local-image {
             width: 200px;
@@ -565,6 +617,12 @@
     </style>
 </head>
 <body>
+   <!-- 图片查看模态框 -->
+<div id="imageModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modalImage">
+  <div id="modalCaption"></div>
+</div>
     <!-- 时光机导航栏 -->
     <div class="wayback-nav">
         <div class="wayback-years">
@@ -757,7 +815,7 @@
                         <div class="post">
                             <h2 class="post-title">☆ 喜欢的男生 ☆</h2>
                             <div class="post-content">
-                                <p><span class="blue-text">陈佳怡</span>问我在学校有没有<span class="red-text">喜欢的男生</span>，她说她对隔壁的<span class="yellow-text">班长</span>有点感觉。我告诉她我现在<span class="blue-text">还没有喜欢的男生</span>呢，我觉得学校里面的<span class="red-text">男生</span>都像<span class="yellow-text">猴子</span>。<span class="blue-text">陈佳怡</span>说我真是<span class="red-text">不懂欣赏</span>，明明有那么多<span class="yellow-text">帅哥</span>等着我<span class="blue-text">挖掘</span>呢却看不见。我有时候真是<span class="red-text">搞不懂她</span>，但是还是不影响她是我<span class="yellow-text">最好的朋友</span>，这是我们<span class="blue-text">放学后</span>去<span class="red-text">小卖部</span>买的<span class="yellow-text">闺蜜挂件</span>。我还在<span class="red-text">相册</span>上传了她拍的小猫和我拍的小狗，你也去看看吧！</p>
+                                <p><span class="blue-text">陈佳怡</span>问我在学校有没有<span class="red-text">喜欢的男生</span>，她说她对隔壁的<span class="yellow-text">班长</span>有点感觉。我告诉她我现在<span class="blue-text">还没有喜欢的男生</span>呢，我觉得学校里面的<span class="red-text">男生</span>都像<span class="yellow-text">猴子</span>。<span class="blue-text">陈佳怡</span>说我真是<span class="red-text">不懂欣赏</span>，明明有那么多<span class="yellow-text">帅哥</span>等着我<span class="blue-text">挖掘</span>呢却看不见。我有时候真是<span class="red-text">搞不懂她</span>，但是还是不影响她是我<span class="yellow-text">最好的朋友</span>，这是我们<span class="blue-text">放学后</span>去<span class="red-text">小卖部</span>买的<span class="yellow-text">闺蜜挂件</span>。</p>
                                 
                                 <div class="image-container">
                                     <!-- 新添加的贴纸 - 左侧 -->
@@ -798,7 +856,7 @@
                             <!-- 第一行 -->
                             <div class="album-item">
                                 <div class="album-image">
-                                    <img class="local-image" src="./IMG_20251025_005912.jpg" alt="照片1">
+                                    <img class="local-image" src="./IMG_20251025_005912.png" alt="照片1">
                                 </div>
                                 <div class="album-caption">照片1</div>
                             </div>
@@ -848,7 +906,7 @@
                             </div>
                             <div class="album-item">
                                 <div class="album-image">
-                                    <img class="local-image" src="./IMG_20251025_010704.jpg" alt="照片9">
+                                    <img class="local-image" src="./IMG_20251025_010635.jpg" alt="照片9">
                                 </div>
                                 <div class="album-caption">照片9</div>
                             </div>
@@ -859,8 +917,8 @@
                     <div class="secret-diary">
                         <h2 class="post-title">☆ 秘密日记 ☆</h2>
                         <div class="diary-lock">
-                            <input type="password" id="diary-password" placeholder="请输入8位数密码">
-                            <button class="submit-btn" onclick="unlockDiary()">解锁日记 提示：我的生日</button>
+                            <input type="password" id="diary-password" placeholder="请输入密码">
+                            <button class="submit-btn" onclick="unlockDiary()">解锁日记</button>
                         </div>
                         <div class="diary-content" id="diary-content">
                             <div class="diary-entry">
@@ -878,13 +936,13 @@
                             <div class="diary-entry">
                                 <div class="diary-date">2010年6月11日</div>
                                 <div class="post-content">
-                                    <p>妈妈说爸爸最近的工作不顺，生活要变得紧巴巴了。我问妈妈什么是紧巴巴，妈妈说就是不能像以前一样经常带我吃肯德基，买芭比娃娃了。我听完后觉得有点伤心，而且我还发现爸爸喝的酒越来越多了，希望爸爸能好起来。</p>
+                                    <p>妈妈说爸爸最近的工作不顺，生活要变得紧巴巴了。我问妈妈什么是紧巴巴，妈妈说就是不能像以前一样经常带我吃外面的快餐，买芭比娃娃了。我听完后觉得有点伤心，希望爸爸能好起来。</p>
                                 </div>
                             </div>
                             <div class="diary-entry">
                                 <div class="diary-date">2010年6月13日</div>
                                 <div class="post-content">
-                                    <p>妈妈最近桌上的漂亮关注越来越少了，妈妈说是最近遮瑕用的比较多，年纪大了脸上都开始有斑了。我好心疼妈妈，妈妈可不可以老得慢一点。</p>
+                                    <p>妈妈桌子上的漂亮罐子越来越少了，明明我最近都没有偷偷用妈妈的化妆品，却用得比以前都快了好多。妈妈说是最近遮瑕用了很多，因为年纪大了脸上都长斑和皱纹了。我好希望妈妈可以老得慢一点，这样我就可以和妈妈呆久一点了。</p>
                                 </div>
                             </div>
                         </div>
@@ -935,6 +993,44 @@
     </a>
     
     <script>
+    // 图片点击查看大图功能
+function initImageModal() {
+  // 获取模态框元素
+  var modal = document.getElementById("imageModal");
+  var modalImg = document.getElementById("modalImage");
+  var captionText = document.getElementById("modalCaption");
+  
+  // 为所有图片添加点击事件
+  var images = document.querySelectorAll('.local-image');
+  images.forEach(function(img) {
+    img.onclick = function(){
+      modal.style.display = "block";
+      modalImg.src = this.src;
+      captionText.innerHTML = this.alt;
+    }
+  });
+  
+  // 获取关闭按钮
+  var span = document.getElementsByClassName("close")[0];
+  
+  // 点击关闭按钮关闭模态框
+  span.onclick = function() { 
+    modal.style.display = "none";
+  }
+  
+  // 点击模态框背景关闭
+  modal.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+}
+
+// 在页面加载完成后初始化图片模态框
+document.addEventListener('DOMContentLoaded', function() {
+  initImageModal();
+});
+
     // 简单的访客计数器动画
     let count = 12547;
     setInterval(function() {
